@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lv.hongqiang.proginn.dao.mapper.ArticleMapper">
+    <insert id="save" parameterType="lv.hongqiang.proginn.model.Article" useGeneratedKeys="true" keyProperty="article.id">
+        insert into crawler_article (title,brief,content,url,insert_time)
+        values(#{article.title},#{article.brief},#{article.content},#{article.url},#{article.insertTime})
+    </insert>
+    <select id="listAllUrl" resultType="java.lang.String">
+        select url from crawler_article
+    </select>
+    <select id="listUnTransed" resultType="lv.hongqiang.proginn.model.Article">
+        SELECT id,content FROM crawler_article WHERE translated IS NULL
+    </select>
+    <update id="saveTranslated">
+        UPDATE crawler_article SET translated_content=#{translated}, translated=1
+        where id=#{id}
+    </update>
+</mapper>
