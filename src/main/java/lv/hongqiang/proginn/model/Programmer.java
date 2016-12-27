@@ -38,6 +38,24 @@ public class Programmer {
     public Programmer() {
     }
 
+    @Override
+    public String toString() {
+        return "Programmer{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", url='" + url + '\'' +
+                ", company='" + company + '\'' +
+                ", job='" + job + '\'' +
+                ", city='" + city + '\'' +
+                ", trade='" + trade + '\'' +
+                ", language='" + language + '\'' +
+                ", year='" + year + '\'' +
+                ", price='" + price + '\'' +
+                ", insertTime=" + insertTime +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }

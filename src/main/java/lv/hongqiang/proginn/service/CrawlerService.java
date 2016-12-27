@@ -17,6 +17,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,10 +30,12 @@ public class CrawlerService {
 
     public void execute(){
         List<Programmer> list=crabList();
+        Collections.reverse(list);
         List<String>ids = programmerDao.list3Ids();
         for (int i = 0; i < list.size(); i++) {
             if(checkSame(list,ids,i)) break;
              Programmer programmer = list.get(i);
+             System.out.println(programmer.toString());
             programmerDao.save(programmer);
         }
     }
@@ -62,20 +65,30 @@ public class CrawlerService {
             Document doc = Jsoup.connect("https://www.proginn.com/users/").get();
             Elements elements = doc.select("#widget-user-list div.J_user");
             for (Element element : elements) {
+                String company = "";
+                String job = "";
+                String city = "";
+                String trade = "";
+                String language = "";
+                String year = "";
                 Element avatar = element.select("div.user-avatar").first();
                 String userId=avatar.attr("userid");
                 String userName = avatar.select("p.user-name").first().text();
                 
                 Elements spans = element.select("div.title span");
-                String company = spans.get(0).text();
-                String job = spans.get(1).text();
-                String city = spans.get(2).text();
-                String trade = spans.get(3).text();
-                String language = spans.get(4).text();
-                String year = spans.get(5).text();
-    
+                try {
+                    company = spans.get(0).text();
+                    job = spans.get(1).text();
+                    city = spans.get(2).text();
+                    trade = spans.get(3).text();
+                    language = spans.get(4).text();
+                    year = spans.get(5).text();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 String price = element.select("div.hire-info .price").text();
-                list.add(new Programmer(userId, userName, city, company, job, city, trade, language, year, price));
+                list.add(new Programmer(userId, userName, "", company, job, city, trade, language, year, price));
             }
             return list;
         } catch (IOException e) {

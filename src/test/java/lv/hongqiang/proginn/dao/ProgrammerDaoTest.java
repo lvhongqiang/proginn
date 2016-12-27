@@ -19,7 +19,7 @@ public class ProgrammerDaoTest {
 
     @Test
     public void save() throws Exception {
-        programmerDao.save(new Programmer("url","url","url","url","company","job","city","trade","year","800"));
+        programmerDao.save(new Programmer("你好","url","url","你好","company","job","city","trade","year","800"));
     }
 
     @Test

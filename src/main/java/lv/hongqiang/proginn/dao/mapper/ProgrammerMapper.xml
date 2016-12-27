@@ -10,6 +10,6 @@
         #{programmer.year},#{programmer.price},#{programmer.insertTime})
     </insert>
     <select id="list3Ids" resultType="java.lang.String">
-        select user_id from programmer limit 3
+        select user_id from programmer order by id desc  limit 3
     </select>
 </mapper>
