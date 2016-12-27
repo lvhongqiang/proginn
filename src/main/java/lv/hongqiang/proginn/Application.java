@@ -14,15 +14,22 @@
  * limitations under the License.
  */
 
-package sample.simple;
+package lv.hongqiang.proginn;
 
-import org.springframework.boot.ExitCodeGenerator;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-public class ExitException extends RuntimeException implements ExitCodeGenerator {
+@SpringBootApplication
+public class Application implements CommandLineRunner {
 
 	@Override
-	public int getExitCode() {
-		return 10;
+	public void run(String... args) {
+	}
+
+
+	public static void main(String[] args) throws Exception {
+		SpringApplication.run(Application.class, args);
 	}
 
 }

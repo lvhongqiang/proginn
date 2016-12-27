@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="lv.hongqiang.proginn.dao.mapper.ProgrammerMapper">
+    <insert id="save" parameterType="lv.hongqiang.proginn.model.Programmer" useGeneratedKeys="true" keyProperty="programmer.id">
+        insert into programmer (user_id,user_name,url,company,job,city,trade,`language`,`year`,price,insert_time)
+        values(#{programmer.userId},#{programmer.userName},#{programmer.url},#{programmer.company},#{programmer.job},
+        #{programmer.city},#{programmer.trade},#{programmer.language},
+        #{programmer.year},#{programmer.price},#{programmer.insertTime})
+    </insert>
+    <select id="list3Ids" resultType="java.lang.String">
+        select user_id from programmer limit 3
+    </select>
+</mapper>

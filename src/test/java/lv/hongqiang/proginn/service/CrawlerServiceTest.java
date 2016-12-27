@@ -1,26 +1,24 @@
-package sample.simple.service;
+package lv.hongqiang.proginn.service;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by Lv on 2016/12/26.
+ * Created by Lv on 2016/12/27.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest()
-public class HelloWorldServiceTest {
-
+public class CrawlerServiceTest {
     @Autowired
-    private HelloWorldService helloWorldService;
+    CrawlerService crawlerService;
     @Test
-    public void getHelloMessage() throws Exception {
-        System.out.println(this.helloWorldService.getHelloMessage());
+    public void execute() throws Exception {
+        crawlerService.execute();
     }
-
+    
 }
