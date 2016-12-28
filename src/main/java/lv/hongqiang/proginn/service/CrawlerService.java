@@ -2,6 +2,7 @@ package lv.hongqiang.proginn.service;
 
 import lv.hongqiang.proginn.dao.ProgrammerDao;
 import lv.hongqiang.proginn.model.Programmer;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.net.ssl.*;
 import java.io.IOException;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -25,17 +24,21 @@ import java.util.List;
  */
 @Service
 public class CrawlerService {
+    private static final Logger logger = Logger.getLogger(CrawlerService.class);
     @Autowired
     private ProgrammerDao programmerDao;
 
     public void execute(){
         List<Programmer> list=crabList();
-        Collections.reverse(list);
+        List<Programmer> newList=new ArrayList<>();
         List<String>ids = programmerDao.list3Ids();
         for (int i = 0; i < list.size(); i++) {
             if(checkSame(list,ids,i)) break;
-             Programmer programmer = list.get(i);
-             System.out.println(programmer.toString());
+            newList.add(list.get(i));
+        }
+        Collections.reverse(newList);
+        for (Programmer programmer : newList) {
+            logger.info(programmer.toString());
             programmerDao.save(programmer);
         }
     }
@@ -84,7 +87,7 @@ public class CrawlerService {
                     language = spans.get(4).text();
                     year = spans.get(5).text();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.debug("",e);
                 }
 
                 String price = element.select("div.hire-info .price").text();
